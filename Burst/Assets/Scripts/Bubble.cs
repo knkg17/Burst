@@ -6,21 +6,18 @@ public class Bubble : MonoBehaviour {
 	public Transform graphic, myTransform;
 	//public Rigidbody2D myBody;
 	public Vector3 rotation;
-	public float vx, vy, velocity, maxVelocity, delta;
-	public float direction;
+	public float velocity, maxVelocity, delta;
+	public float direction, size, maxSize;
 
-	private float _dx, _dy;
+	private Vector2 _dv, _velocity;
 	// Use this for initialization
 	void Start () {
 		rotation = new Vector3( 0f, 0f, 0f );
-		//direction = Random.Range( 40f, 50f );
-		direction = 45f;
-		vx = Mathf.Cos( Mathf.Deg2Rad * direction ) * velocity;
-		vy = Mathf.Sin( Mathf.Deg2Rad * direction ) * velocity;
-		_dx = Mathf.Cos( Mathf.Deg2Rad * direction ) * delta;
-		_dy = Mathf.Sin( Mathf.Deg2Rad * direction ) * delta;
-		//myBody.velocity = new Vector2( vx, vy );
-		//myBody.AddForce( new Vector2( vx, vy ), ForceMode2D.Impulse );
+		direction = Random.Range( 40f, 50f );
+		//direction = 45f;
+
+		_velocity = new Vector2( Mathf.Cos( Mathf.Deg2Rad * direction ) * velocity, Mathf.Sin( Mathf.Deg2Rad * direction ) * velocity );
+		_dv = new Vector2( Mathf.Cos( Mathf.Deg2Rad * direction ) * delta, Mathf.Sin( Mathf.Deg2Rad * direction ) * delta );
 
 	}
 	
@@ -29,46 +26,41 @@ public class Bubble : MonoBehaviour {
 		rotation.z += Random.Range( -0.1f, 1.1f );
 		graphic.eulerAngles = rotation;
 
-		velocity = new Vector2(vx,vy).magnitude;
-
-		//vx = Mathf.Cos( Mathf.Deg2Rad * direction ) * velocity;
-		//vy = Mathf.Sin( Mathf.Deg2Rad * direction ) * velocity;
-		vx += _dx;
-		vy += _dy;
+		_velocity += _dv;
 	}
 
 	void LateUpdate ( ) {
-		Vector2 newVelocity = new Vector2( vx, vy );
-		if( newVelocity.magnitude > maxVelocity ) {
-			newVelocity = newVelocity.normalized * maxVelocity;
-			vx = newVelocity.x;
-			vy = newVelocity.y;
+		if( _velocity.magnitude > maxVelocity ) {
+			_velocity = _velocity.normalized * maxVelocity;
 		}
-		myTransform.Translate( vx, vy, 0f );
-		//Debug.Log( myTransform.position.ToString() );
+		myTransform.Translate( _velocity.x, _velocity.y, 0f );
 	}
 
 	void OnCollisionEnter2D ( Collision2D collision ) {
-		//Debug.Log( "Collided!" );
 		if( collision.gameObject.tag == "FrameTop" || collision.gameObject.tag == "FrameBottom" ) {
-			vy *= -1f;
-			_dy *= -1f;
+			_velocity.y *= -1f;
+			_dv.y *= -1f;
 			CalculateDirection();
 
 		}
 		if( collision.gameObject.tag == "FrameLeft" || collision.gameObject.tag == "FrameRight" ) {
-			vx *= -1f;
-			_dx *= -1f;
+			_velocity.x *= -1f;
+			_dv.x *= -1f;
 			CalculateDirection();
 		}
-		//Debug.Log( collision.gameObject.tag + ", vx: " + vx.ToString("0.0000") + ", vy: " + vy.ToString("0.0000") );
 	}
 
 	private void CalculateDirection ( ) {
-		/*
-		float atan = Mathf.Atan( vx / vy );
-		direction = Mathf.Rad2Deg * atan;
-		//*/
-		direction = Vector2.Angle( Vector2.zero, new Vector2( vx, vy ) );
+		direction = Vector2.Angle( Vector2.zero, _velocity );
+	}
+
+	public void Enlarge ( float val ) {
+		float speedRedux = size / ( size + val );
+		size += val;
+		if( size > maxSize ) {
+			size = maxSize;
+		}
+		myTransform.localScale = new Vector3( size, size, 1f );
+
 	}
 }

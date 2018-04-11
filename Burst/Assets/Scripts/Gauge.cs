@@ -12,8 +12,8 @@ public class Gauge : MonoBehaviour {
 		height = 0.8f;
 		maxWidth = 0.98f;
 		load.localScale = new Vector3( width, height, 1f );
-		gaugeValue = 0f;
-		maxGaugeValue = 100f;
+		//gaugeValue = 0f;
+		//maxGaugeValue = 100f;
 	}
 
 	private float _charge = 1f;
@@ -48,7 +48,8 @@ public class Gauge : MonoBehaviour {
 	}
 
 	public float Subtract ( float val ) {
-		if(gaugeValue > 0 ) {
+		Debug.Log( "Subtracting<" + gameObject.name + ">..." );
+		if( gaugeValue > 0 ) {
 			if( gaugeValue - val > 0 ) {
 				gaugeValue -= val;
 				UpdateWidth();

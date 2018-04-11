@@ -20,37 +20,24 @@ public class GunDirection : MonoBehaviour {
 		float angle;
 		Vector2 a = new Vector2( myTransform.position.x, myTransform.position.y );
 		Vector2 b = new Vector2( aim.x, aim.y );
-		//Debug.Log( a.ToString() + ", " + b.ToString() );
-		float abangle = Vector2.Angle( a, b );
-		float baangle = Vector2.Angle( b, a );
-		float origoangle = Vector2.Angle( new Vector2(0f,0f), b );
-
-		//Debug.Log( "angles, ab: " + abangle.ToString( "00.00" + ", ba: " + baangle.ToString( "00.00" ) + ",  oa: " + origoangle.ToString( "00.00" ) ));
-		//angle = Vector2.Angle( ConvertV3( myTransform.position ), ConvertV3( aim ) );
 
 		angle = GetAngle( a, b );
-		/*
-		if( angle < 90f )
-			angle = 90f - angle;
-		else if( angle > 90f )
-			angle = angle - 90f;
-		else
-			angle = 0f;
-		//*/
-		//Debug.Log( aim.ToString() + ", " + myTransform.position.ToString() + " - " + angle.ToString("0000.0000") );
 		myTransform.eulerAngles = new Vector3( 0f, 0f, angle );
 	}
 
+	private float _ax, _ay;
 	private float GetAngle(Vector2 a, Vector2 b ) {
-		float x = b.x - a.x;
-		float y = b.y - a.y;
+		_ax = b.x - a.x;
+		_ay = b.y - a.y;
 
-		float arctan = Mathf.Atan( x / y ) * Mathf.Rad2Deg;
-		//Debug.Log( arctan );
+		float arctan = Mathf.Atan( _ax / _ay ) * Mathf.Rad2Deg;
+
 		return arctan * -1f;
 	}
 
-	private Vector2 ConvertV3( Vector3 v ) {
-		return new Vector2( v.x, v.y );
+	public Vector2 GetXYAngle ( ) {
+		Vector2 returnVal = new Vector2( _ax, _ay );
+		return returnVal.normalized;
 	}
+
 }

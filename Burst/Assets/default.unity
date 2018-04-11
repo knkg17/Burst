@@ -218,10 +218,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   load: {fileID: 1282291474}
   width: 0
-  height: 0
-  maxWidth: 0
+  height: 0.8
+  maxWidth: 0.98
   gaugeValue: 0
-  maxGaugeValue: 0
+  maxGaugeValue: 50
 --- !u!212 &80078938
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -595,7 +595,7 @@ GameObject:
   - component: {fileID: 483279495}
   - component: {fileID: 483279494}
   m_Layer: 0
-  m_Name: Gauge
+  m_Name: ChargeGauge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -614,10 +614,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   load: {fileID: 1988841519}
   width: 0
-  height: 0
-  maxWidth: 0
+  height: 0.8
+  maxWidth: 0.98
   gaugeValue: 0
-  maxGaugeValue: 0
+  maxGaugeValue: 100
 --- !u!212 &483279495
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -758,7 +758,7 @@ GameObject:
   - component: {fileID: 546535985}
   m_Layer: 0
   m_Name: Bubble
-  m_TagString: Untagged
+  m_TagString: Bubble
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -855,12 +855,12 @@ MonoBehaviour:
   graphic: {fileID: 1392669745}
   myTransform: {fileID: 546535987}
   rotation: {x: 0, y: 0, z: 0}
-  vx: 0
-  vy: 0
   velocity: 0.005
   maxVelocity: 0.05
   delta: 0.0001
   direction: 0
+  size: 2
+  maxSize: 0
 --- !u!58 &546535989
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1338,6 +1338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1858389247}
   - component: {fileID: 1858389246}
+  - component: {fileID: 1858389248}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -1364,14 +1365,31 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1858389245}
-  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -6, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1686858220}
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1858389248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1858389245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4226d420dac950c45912d9dc9f1df24b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 1055344177363066, guid: 2ff4a99ee66b4ed46b6eb1ba94c66011,
+    type: 2}
+  gd: {fileID: 1858389246}
+  gunGauge: {fileID: 80078937}
+  chargeGauge: {fileID: 483279494}
+  chargeTime: 0.1
 --- !u!1 &1879472898
 GameObject:
   m_ObjectHideFlags: 0
