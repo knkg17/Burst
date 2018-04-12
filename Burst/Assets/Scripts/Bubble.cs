@@ -67,8 +67,9 @@ public class Bubble : MonoBehaviour {
 		if( collision.gameObject.tag == "Bullet" ) {
 			//Bullet bb = collision.gameObject.GetComponent<Bullet>();
 			float multi = ( collision.gameObject.transform.localScale.x / 10f ) + 1f;
-			myTransform.localScale = myTransform.localScale * multi;
-			health += Random.Range( 0.75f, 1.51f );
+			if( myTransform.localScale.x < 5f )
+				myTransform.localScale = myTransform.localScale * multi;
+			health += Random.Range( multi/4f*3f, multi * 1.51f );
 		}
 	}
 

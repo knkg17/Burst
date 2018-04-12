@@ -38,6 +38,7 @@ public class GunShot : MonoBehaviour {
 			b.SetVelocity( gd.GetXYAngle() * chargeMultiplier * _chargeSize );
 			
 			b.InitCountdown( Random.Range( 5f, 10.1f ) );
+			gunGauge.Emptying();
 		}
 	}
 
