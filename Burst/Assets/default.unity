@@ -776,7 +776,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_AngularDrag: 1000
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -854,6 +854,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   graphic: {fileID: 1392669745}
   myTransform: {fileID: 546535987}
+  myBody: {fileID: 546535985}
   rotation: {x: 0, y: 0, z: 0}
   velocity: 0.005
   maxVelocity: 0.05
@@ -1390,6 +1391,8 @@ MonoBehaviour:
   gunGauge: {fileID: 80078937}
   chargeGauge: {fileID: 483279494}
   chargeTime: 0.1
+  chargeMultiplier: 10
+  chargeIncrement: 0.2
 --- !u!1 &1879472898
 GameObject:
   m_ObjectHideFlags: 0

@@ -41,14 +41,16 @@ public class Gauge : MonoBehaviour {
 	private float _amount;
 
 	public void Increase ( float val, float time ) {
-		_chargeTime = time;
-		_addWidth = true;
-		_steps = val;
-		_amount = val;
+		if(gaugeValue + val <= maxGaugeValue ) {
+			_chargeTime = time;
+			_addWidth = true;
+			_steps = val;
+			_amount = val;
+		}
 	}
 
 	public float Subtract ( float val ) {
-		Debug.Log( "Subtracting<" + gameObject.name + ">..." );
+		//Debug.Log( "Subtracting<" + gameObject.name + ">..." );
 		if( gaugeValue > 0 ) {
 			if( gaugeValue - val > 0 ) {
 				gaugeValue -= val;

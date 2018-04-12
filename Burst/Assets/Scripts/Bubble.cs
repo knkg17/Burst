@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Bubble : MonoBehaviour {
 	public Transform graphic, myTransform;
-	//public Rigidbody2D myBody;
+	public Rigidbody2D myBody;
 	public Vector3 rotation;
 	public float velocity, maxVelocity, delta;
 	public float direction, size, maxSize;
+	public float health;
 
 	private Vector2 _dv, _velocity;
 	// Use this for initialization
@@ -18,11 +19,12 @@ public class Bubble : MonoBehaviour {
 
 		_velocity = new Vector2( Mathf.Cos( Mathf.Deg2Rad * direction ) * velocity, Mathf.Sin( Mathf.Deg2Rad * direction ) * velocity );
 		_dv = new Vector2( Mathf.Cos( Mathf.Deg2Rad * direction ) * delta, Mathf.Sin( Mathf.Deg2Rad * direction ) * delta );
-
+		health = 100f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		myBody.velocity = Vector2.zero;
 		rotation.z += Random.Range( -0.1f, 1.1f );
 		graphic.eulerAngles = rotation;
 
@@ -34,19 +36,39 @@ public class Bubble : MonoBehaviour {
 			_velocity = _velocity.normalized * maxVelocity;
 		}
 		myTransform.Translate( _velocity.x, _velocity.y, 0f );
+		//myBody.velocity = Vector2.zero;
 	}
+
+	private float _vertCollTimer = 0f;
+	private float _horzCollTimer = 0f;
 
 	void OnCollisionEnter2D ( Collision2D collision ) {
 		if( collision.gameObject.tag == "FrameTop" || collision.gameObject.tag == "FrameBottom" ) {
-			_velocity.y *= -1f;
-			_dv.y *= -1f;
-			CalculateDirection();
+			if( _horzCollTimer == 0f ) {
+				_velocity.y *= -1f;
+				_dv.y *= -1f;
+				health -= Random.Range( 0.5f, 2.51f );
+				CalculateDirection();
+				_vertCollTimer += Time.deltaTime;
+			} else if( _vertCollTimer > 0.1f ) {
+				_vertCollTimer = 0f;
+			} else {
+				_vertCollTimer += Time.deltaTime;
+			}
 
 		}
 		if( collision.gameObject.tag == "FrameLeft" || collision.gameObject.tag == "FrameRight" ) {
 			_velocity.x *= -1f;
 			_dv.x *= -1f;
+			health -= Random.Range( 0.5f, 2.51f );
 			CalculateDirection();
+		}
+
+		if( collision.gameObject.tag == "Bullet" ) {
+			//Bullet bb = collision.gameObject.GetComponent<Bullet>();
+			float multi = ( collision.gameObject.transform.localScale.x / 10f ) + 1f;
+			myTransform.localScale = myTransform.localScale * multi;
+			health += Random.Range( 0.75f, 1.51f );
 		}
 	}
 

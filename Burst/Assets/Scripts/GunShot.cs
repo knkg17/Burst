@@ -6,7 +6,7 @@ public class GunShot : MonoBehaviour {
 	public GameObject bulletPrefab;
 	public GunDirection gd;
 	public Gauge gunGauge, chargeGauge;
-	public float chargeTime;
+	public float chargeTime, chargeMultiplier, chargeIncrement;
 	// Use this for initialization
 	void Start () {
 		
@@ -20,15 +20,13 @@ public class GunShot : MonoBehaviour {
 		if( Input.GetMouseButtonDown( 0 ) && !_shooting ) {
 			_shooting = true;
 			_chargeTimer = chargeTime;
-			_chargeSize = 0f;
+			_chargeSize = chargeIncrement;
 		}
 
 
 		if( Input.GetMouseButtonUp(0) && _shooting ) {
 			_shooting = false;
-			Vector3 pos = gameObject.transform.position;
-			pos.z += 1f;
-			pos.y += 2.5f;
+			Vector3 pos = gameObject.transform.position + new Vector3(0f, 2.5f, 2f);
 			GameObject bullet = (GameObject)Instantiate( bulletPrefab, pos, Quaternion.identity );
 			Bullet b = bullet.GetComponent<Bullet>();
 			float s = gunGauge.Subtract( _chargeSize * gunGauge.maxGaugeValue );
@@ -37,7 +35,7 @@ public class GunShot : MonoBehaviour {
 			}
 			b.SetSize( _chargeSize * 1.5f );
 			// gd.myTransform.eulerAngles.z
-			b.SetVelocity( gd.GetXYAngle() * 8f * _chargeSize );
+			b.SetVelocity( gd.GetXYAngle() * chargeMultiplier * _chargeSize );
 			
 			b.InitCountdown( Random.Range( 5f, 10.1f ) );
 		}
@@ -49,12 +47,12 @@ public class GunShot : MonoBehaviour {
 				_chargeTimer -= Time.deltaTime;
 			} else {
 				_chargeTimer = chargeTime;
-				_chargeSize += 0.1f;
-				if( _chargeSize > 0.5f )
-					_chargeSize = 0.5f;
-				float s = chargeGauge.Subtract( gunGauge.maxGaugeValue / 10f );
-				if( s > 0 ) {
-					gunGauge.Increase( s, chargeTime * 0.9f );
+				if( _chargeSize < chargeIncrement * 5f ) {
+					_chargeSize += chargeIncrement;
+					float s = chargeGauge.Subtract( gunGauge.maxGaugeValue / 10f );
+					if( s > 0 ) {
+						gunGauge.Increase( s, chargeTime * 0.9f );
+					}
 				}
 			}
 		}
