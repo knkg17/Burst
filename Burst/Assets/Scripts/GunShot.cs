@@ -35,7 +35,7 @@ public class GunShot : MonoBehaviour {
 			}
 			b.SetSize( _chargeSize * 1.5f );
 			// gd.myTransform.eulerAngles.z
-			b.SetVelocity( gd.GetXYAngle() * chargeMultiplier * _chargeSize );
+			b.SetVelocity( gd.GetXYAngle() * chargeMultiplier * _chargeSize * 3f );
 			
 			b.InitCountdown( Random.Range( 5f, 10.1f ) );
 			gunGauge.Emptying();

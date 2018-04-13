@@ -44,12 +44,13 @@ public class Bubble : MonoBehaviour {
 
 	void OnCollisionEnter2D ( Collision2D collision ) {
 		if( collision.gameObject.tag == "FrameTop" || collision.gameObject.tag == "FrameBottom" ) {
-			if( _horzCollTimer == 0f ) {
+			if( _vertCollTimer == 0f ) {
 				_velocity.y *= -1f;
 				_dv.y *= -1f;
 				health -= Random.Range( 0.5f, 2.51f );
 				CalculateDirection();
-				_vertCollTimer += Time.deltaTime;
+				//_vertCollTimer += Time.deltaTime;
+				Debug.Log( "Switching v-direction! - " + _dv.y );
 			} else if( _vertCollTimer > 0.1f ) {
 				_vertCollTimer = 0f;
 			} else {
@@ -58,10 +59,18 @@ public class Bubble : MonoBehaviour {
 
 		}
 		if( collision.gameObject.tag == "FrameLeft" || collision.gameObject.tag == "FrameRight" ) {
-			_velocity.x *= -1f;
-			_dv.x *= -1f;
-			health -= Random.Range( 0.5f, 2.51f );
-			CalculateDirection();
+			if( _horzCollTimer == 0f ) {
+				_velocity.x *= -1f;
+				_dv.x *= -1f;
+				health -= Random.Range( 0.5f, 2.51f );
+				CalculateDirection();
+				//_horzCollTimer += Time.deltaTime;
+				Debug.Log( "Switching h-direction! - " + _dv.x );
+			} else if( _vertCollTimer > 0.1f ) {
+				_horzCollTimer = 0f;
+			} else {
+				_horzCollTimer += Time.deltaTime;
+			}
 		}
 
 		if( collision.gameObject.tag == "Bullet" ) {

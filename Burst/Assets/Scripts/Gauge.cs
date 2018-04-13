@@ -41,11 +41,16 @@ public class Gauge : MonoBehaviour {
 	private float _amount;
 
 	public void Increase ( float val, float time ) {
-		if(gaugeValue + val <= maxGaugeValue ) {
+		if( gaugeValue + val <= maxGaugeValue ) {
 			_chargeTime = time;
 			_addWidth = true;
 			_steps = val;
 			_amount = val;
+		} else if( gaugeValue < maxGaugeValue ) {
+			_chargeTime = time;
+			_addWidth = true;
+			_steps = maxGaugeValue - gaugeValue;
+			_amount = maxGaugeValue - gaugeValue;
 		}
 	}
 
