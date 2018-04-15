@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 	public BubbleController bc;
 	public GameObject bulletPrefab;
+	public Transform bulletSpawner;
 	public List<Bullet> bullets;
 
 	public Gauge ammoGauge, chargeGauge;
@@ -25,7 +26,7 @@ public class GameController : MonoBehaviour {
 		} else {
 			_ammoGaugeTimer = ammoRechargeTimer;
 			ammoGauge.AddAmount( ammoRechargeAmount, ammoRechargeRate );
-			Debug.Log( Time.timeSinceLevelLoad );
+			//Debug.Log( Time.timeSinceLevelLoad );
 		}
 	}
 

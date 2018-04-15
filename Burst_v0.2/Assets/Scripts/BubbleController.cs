@@ -17,8 +17,12 @@ public class BubbleController : MonoBehaviour {
 	public Vector2 velocity;
 	public float maxVelocity, maxSize;
 	public Transform myTransform;
+	public Transform bubbleGraphic;
+	public float bubbleTurnRate;
+	private Vector3 bgEulerAngles;
 	// Use this for initialization
 	void Start () {
+		bgEulerAngles = bubbleGraphic.localEulerAngles;
 		if(myTransform == null ) {
 			myTransform = gameObject.transform;
 		}
@@ -41,16 +45,20 @@ public class BubbleController : MonoBehaviour {
 		if( bdX == Bouncedirection.EAST || bdX == Bouncedirection.WEST ) {
 			temp.x = temp.x * -1f;
 			velocity.x = velocity.x * -1f;
+			bubbleTurnRate = ( bubbleTurnRate + Random.RandomRange( -4, 4 ) ) * -1f;
 		}
 		if( bdY == Bouncedirection.NORTH || bdY == Bouncedirection.SOUTH ) {
 			temp.y = temp.y * -1f;
 			velocity.y = velocity.y * -1f;
+			bubbleTurnRate = ( bubbleTurnRate + Random.RandomRange( -4, 4 ) ) * -1f;
 		}
 		/*
 		if( bdX != Bouncedirection.NULL || bdY != Bouncedirection.NULL )
 			Debug.Log( "Bounce! " + bdX.ToString() + " or " + bdY.ToString() );
 		//*/
 		myTransform.Translate( temp.x, temp.y, 0f );
+		bgEulerAngles.z = ( bgEulerAngles.z + ( bubbleTurnRate * Time.deltaTime ) ) % 360;
+		bubbleGraphic.localEulerAngles = bgEulerAngles;
 	}
 
 	private Bouncedirection InGameBoundX ( Vector2 newPos ) {

@@ -141,15 +141,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bc: {fileID: 956295275}
-  bulletPrefab: {fileID: 0}
+  bulletPrefab: {fileID: 1519678124259712, guid: f7bb4139505bd2b40ada46924552f937,
+    type: 2}
+  bulletSpawner: {fileID: 356563480}
   bullets: []
   ammoGauge: {fileID: 1441308527}
   chargeGauge: {fileID: 841082818}
   ammoRechargeTimer: 1
   chargeTimer: 0
-  ammoRechargeRate: 25
+  ammoRechargeRate: 50
   chargeRate: 0
-  ammoRechargeAmount: 25
+  ammoRechargeAmount: 10
 --- !u!4 &247123097
 Transform:
   m_ObjectHideFlags: 0
@@ -439,6 +441,8 @@ MonoBehaviour:
   maxVelocity: 0
   maxSize: 0
   myTransform: {fileID: 956295276}
+  bubbleGraphic: {fileID: 687739849}
+  bubbleTurnRate: 25
 --- !u!4 &956295276
 Transform:
   m_ObjectHideFlags: 0
