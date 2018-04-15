@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GunShot : MonoBehaviour {
+	public Transform bulletLauncher;
 	public GameObject bulletPrefab;
 	public GunDirection gd;
 	public Gauge gunGauge, chargeGauge;
@@ -26,8 +27,8 @@ public class GunShot : MonoBehaviour {
 
 		if( Input.GetMouseButtonUp(0) && _shooting ) {
 			_shooting = false;
-			Vector3 pos = gameObject.transform.position + new Vector3(0f, 2.5f, 2f);
-			GameObject bullet = (GameObject)Instantiate( bulletPrefab, pos, Quaternion.identity );
+			//Vector3 pos = gameObject.transform.position + new Vector3(0f, 2.5f, 2f);
+			GameObject bullet = (GameObject)Instantiate( bulletPrefab, bulletLauncher.position, Quaternion.identity );
 			Bullet b = bullet.GetComponent<Bullet>();
 			float s = gunGauge.Subtract( _chargeSize * gunGauge.maxGaugeValue );
 			if( s < _chargeSize * gunGauge.maxGaugeValue ) {

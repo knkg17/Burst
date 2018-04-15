@@ -1,0 +1,155 @@
+fileFormatVersion: 2
+guid: 33985a18527e6f346ac1794de9929f57
+timeCreated: 1523742149
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Bubble
+    100002: //RootNode
+    100004: Outer_Ring
+    100006: Spec1
+    100008: Spec2
+    100010: Spec3
+    100012: Spec4
+    400000: Bubble
+    400002: //RootNode
+    400004: Outer_Ring
+    400006: Spec1
+    400008: Spec2
+    400010: Spec3
+    400012: Spec4
+    2100000: BubbleMat
+    2100002: Outer_RingMat
+    2100004: Spec1Mat
+    2100006: Spec2Mat
+    2100008: Spec3Mat
+    2100010: Spec4Mat
+    2300000: Bubble
+    2300002: Outer_Ring
+    2300004: Spec1
+    2300006: Spec2
+    2300008: Spec3
+    2300010: Spec4
+    3300000: Bubble
+    3300002: Outer_Ring
+    3300004: Spec1
+    3300006: Spec2
+    3300008: Spec3
+    3300010: Spec4
+    4300000: Bubble
+    4300002: Outer_Ring
+    4300004: Spec1
+    4300006: Spec2
+    4300008: Spec3
+    4300010: Spec4
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BubbleMat
+    second: {fileID: 2100000, guid: 0c212e800a43a9846a49cc597fa117de, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Outer_RingMat
+    second: {fileID: 2100000, guid: ce7b5ba0fed73614db98ea0dbcbe43c8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Spec1Mat
+    second: {fileID: 2100000, guid: 2376a7e6d10cf0f4dbe5a80e6497a13c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Spec2Mat
+    second: {fileID: 2100000, guid: 454b71df8c169cb4793ff942f5fcfd62, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Spec3Mat
+    second: {fileID: 2100000, guid: d0cb6f3210b807c4e8c2aded245bf150, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Spec4Mat
+    second: {fileID: 2100000, guid: cefd7fadb92062b49af3806f41e6d436, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
