@@ -22,6 +22,10 @@ public class BubbleController : MonoBehaviour {
 		if(myTransform == null ) {
 			myTransform = gameObject.transform;
 		}
+
+		myTransform.position = new Vector3( Random.Range( gameBounds.x + origo.x + myTransform.localScale.x / 2f, gameBounds.width + origo.x - myTransform.localScale.x / 2f ),
+											Random.Range( gameBounds.y + origo.y + myTransform.localScale.x / 2f, gameBounds.height + origo.y - myTransform.localScale.x / 2f ),
+											0f );
 	}
 	
 	// Update is called once per frame
@@ -32,37 +36,31 @@ public class BubbleController : MonoBehaviour {
 	private void FixedUpdate ( ) {
 		Vector2 temp = velocity * Time.deltaTime;
 		
-		Bouncedirection bd = InGameBound( GetPos() + temp );
-		switch( bd ) {
-			case Bouncedirection.NORTH:
-				temp.y = temp.y * -1f;
-				velocity.y = velocity.y * -1;
-				break;
-			case Bouncedirection.SOUTH:
-				temp.y = temp.y * -1f;
-				velocity.y = velocity.y * -1;
-				break;
-			case Bouncedirection.WEST:
-				temp.x = temp.x * -1f;
-				velocity.x = velocity.x * -1;
-				break;
-			case Bouncedirection.EAST:
-				temp.x = temp.x * -1f;
-				velocity.x = velocity.x * -1;
-				break;
-			default:
-				break;
+		Bouncedirection bdX = InGameBoundX( GetPos() + temp );
+		Bouncedirection bdY = InGameBoundY( GetPos() + temp );
+		if( bdX == Bouncedirection.EAST || bdX == Bouncedirection.WEST ) {
+			temp.x = temp.x * -1f;
+			velocity.x = velocity.x * -1f;
 		}
-		if( bd != Bouncedirection.NULL )
-			Debug.Log( "Bounce! " + bd.ToString() );
+		if( bdY == Bouncedirection.NORTH || bdY == Bouncedirection.SOUTH ) {
+			temp.y = temp.y * -1f;
+			velocity.y = velocity.y * -1f;
+		}
+		/*
+		if( bdX != Bouncedirection.NULL || bdY != Bouncedirection.NULL )
+			Debug.Log( "Bounce! " + bdX.ToString() + " or " + bdY.ToString() );
+		//*/
 		myTransform.Translate( temp.x, temp.y, 0f );
 	}
 
-	private Bouncedirection InGameBound ( Vector2 newPos ) {
+	private Bouncedirection InGameBoundX ( Vector2 newPos ) {
 		if( newPos.x + ( myTransform.localScale.x / 2f ) > origo.x + gameBounds.width )
 			return Bouncedirection.EAST;
 		if( newPos.x - ( myTransform.localScale.x / 2f ) < origo.x + gameBounds.x )
 			return Bouncedirection.WEST;
+		return Bouncedirection.NULL;
+	}
+	private Bouncedirection InGameBoundY ( Vector2 newPos ) {
 		if( newPos.y + ( myTransform.localScale.y / 2f ) > origo.y + gameBounds.height )
 			return Bouncedirection.NORTH;
 		if( newPos.y - ( myTransform.localScale.y / 2f ) < origo.y + gameBounds.y )
