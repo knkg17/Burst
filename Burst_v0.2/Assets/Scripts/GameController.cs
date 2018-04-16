@@ -13,14 +13,105 @@ public class GameController : MonoBehaviour {
 	public float ammoRechargeRate, chargeRate;
 	public float ammoRechargeAmount;
 
+	public Transform gun;
+	public float baseBulletSpeed, baseBulletSize;
+	public GunController gunc;
+
 	// Use this for initialization
 	void Start () {
 		_ammoGaugeTimer = ammoRechargeTimer;
 	}
 
-	private float _ammoGaugeTimer;
 	// Update is called once per frame
 	void Update () {
+		FillAmmoGauge();
+		Charge();
+	}
+
+	private bool _charging = false;
+	//private bool _charging = true;
+	private float _chargeTimer = 0f;
+	private void Charge ( ) {
+		if( Input.GetMouseButton( 0 ) && _charging ) {
+			if( _chargeTimer < chargeTimer ) {
+				_chargeTimer += Time.deltaTime;
+			} else {
+				_chargeTimer = 0f;
+				if( chargeGauge.IsFull() == false ) {
+					float t = ammoGauge.GetAmount( 10f );
+					chargeGauge.AddAmount( t, chargeRate );
+				}
+			}
+		}
+		//*
+		if( Input.GetMouseButtonDown( 0 ) ) {
+			_charging = true;
+			_chargeTimer = chargeTimer;
+		}
+		if( Input.GetMouseButtonUp( 0 ) && _charging && _shootTimer == 0f ) {
+			_charging = false;
+			Shoot();
+		}//*/
+		if( _shootTimer > 0f ) {
+			if( _shootTimer > 0.1f ) {
+				_shootTimer = 0f;
+			} else {
+				_shootTimer += Time.deltaTime;
+			}
+		}
+	}
+
+	private void LateUpdate ( ) {
+		CheckCollision();
+	}
+
+	private void CheckCollision ( ) {
+		for( int i = 0; i < bullets.Count; i++ ) {
+			float collDist = ( bullets[ i ].size + bc.size ) / 2;
+			Vector2 collVector = TransformToV2( bullets[ i ].myTransform.position ) - TransformToV2( bc.myTransform.position );
+			Debug.Log( collVector.magnitude + ", " + collDist );
+			if( collDist >= collVector.magnitude ) {
+				Bullet b = bullets[ i ];
+				bullets.Remove( b );
+				bc.IncreaseSize( GetActualIncrease( bc.size, b.size ) );
+				bc.AddSpeed( b.velocity.magnitude / 10f );
+				Destroy( b.gameObject );
+			}
+ 		}
+	}
+
+	private Vector2 TransformToV2 ( Vector3 v ) {
+		return new Vector2( v.x, v.y );
+	}
+
+	private float GetActualIncrease ( float a, float b ) {
+		float area = ( a * a * 3.14f / 4 ) + b;
+		float dia = Mathf.Sqrt( area / 3.14f );
+		Debug.Log( dia );
+		return dia/10f;
+	}
+
+	private float _shootTimer = 0f;
+	private void Shoot ( ) {
+		if( _shootTimer == 0f )	{
+			//Debug.Log( "Shooting!" );
+			float v = chargeGauge.GetGaugePercent() + 0.5f;
+			GameObject go = Instantiate( bulletPrefab, bulletSpawner.position, Quaternion.identity );
+			Bullet b = go.GetComponent<Bullet>();
+			Vector2 bv = gunc.GetXYAngle();
+			//Debug.Log( "bullet vector: " + bv.ToString() + ", " + v );
+			bv = bv.normalized * ( baseBulletSpeed * v * 2f );
+			b.Init( bv, v );
+			bullets.Add( b );
+			chargeGauge.Empty();
+			_shootTimer += Time.deltaTime;
+		}
+	}
+
+
+
+	private float _ammoGaugeTimer;
+	private void FillAmmoGauge ( ) {
 		if( _ammoGaugeTimer > 0f ) {
 			_ammoGaugeTimer -= Time.deltaTime;
 		} else {

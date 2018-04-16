@@ -148,10 +148,14 @@ MonoBehaviour:
   ammoGauge: {fileID: 1441308527}
   chargeGauge: {fileID: 841082818}
   ammoRechargeTimer: 1
-  chargeTimer: 0
-  ammoRechargeRate: 50
-  chargeRate: 0
+  chargeTimer: 1
+  ammoRechargeRate: 10
+  chargeRate: 25
   ammoRechargeAmount: 10
+  gun: {fileID: 2116499663}
+  baseBulletSpeed: 5
+  baseBulletSize: 1
+  gunc: {fileID: 2116499662}
 --- !u!4 &247123097
 Transform:
   m_ObjectHideFlags: 0
@@ -438,8 +442,9 @@ MonoBehaviour:
     height: 8
   origo: {x: 0, y: 5, z: 0}
   velocity: {x: 0.5, y: 0.5}
-  maxVelocity: 0
-  maxSize: 0
+  maxVelocity: 5
+  maxSize: 10
+  size: 2
   myTransform: {fileID: 956295276}
   bubbleGraphic: {fileID: 687739849}
   bubbleTurnRate: 25
@@ -601,6 +606,11 @@ Prefab:
     - target: {fileID: 1937046827422768, guid: 27328d0ccf77fab468b2403c38b0b31c, type: 2}
       propertyPath: m_Name
       value: ChargeGauge
+      objectReference: {fileID: 0}
+    - target: {fileID: 114967835448820490, guid: 27328d0ccf77fab468b2403c38b0b31c,
+        type: 2}
+      propertyPath: maxGauge
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 27328d0ccf77fab468b2403c38b0b31c, type: 2}

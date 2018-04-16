@@ -113,7 +113,18 @@ public class Gauge : MonoBehaviour {
 		loading.localScale = gaugeGraphic;
 	}
 
-	private float GetGaugePercent ( ) {
+	public float GetGaugePercent ( ) {
 		return gaugeLevel / maxGauge;
+	}
+
+	public bool IsFull ( ) {
+		if( gaugeLevel >= maxGauge )
+			return true;
+		return false;
+	}
+
+	public void Empty ( ) {
+		gaugeLevel = 0;
+		DrawGauge();
 	}
 }

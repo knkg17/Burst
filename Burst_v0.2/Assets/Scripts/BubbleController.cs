@@ -15,7 +15,7 @@ public class BubbleController : MonoBehaviour {
 	public Vector3 origo;
 
 	public Vector2 velocity;
-	public float maxVelocity, maxSize;
+	public float maxVelocity, maxSize, size;
 	public Transform myTransform;
 	public Transform bubbleGraphic;
 	public float bubbleTurnRate;
@@ -45,12 +45,12 @@ public class BubbleController : MonoBehaviour {
 		if( bdX == Bouncedirection.EAST || bdX == Bouncedirection.WEST ) {
 			temp.x = temp.x * -1f;
 			velocity.x = velocity.x * -1f;
-			bubbleTurnRate = ( bubbleTurnRate + Random.RandomRange( -4, 4 ) ) * -1f;
+			bubbleTurnRate = ( bubbleTurnRate + Random.Range( -4, 4 ) ) * -1f;
 		}
 		if( bdY == Bouncedirection.NORTH || bdY == Bouncedirection.SOUTH ) {
 			temp.y = temp.y * -1f;
 			velocity.y = velocity.y * -1f;
-			bubbleTurnRate = ( bubbleTurnRate + Random.RandomRange( -4, 4 ) ) * -1f;
+			bubbleTurnRate = ( bubbleTurnRate + Random.Range( -4, 4 ) ) * -1f;
 		}
 		/*
 		if( bdX != Bouncedirection.NULL || bdY != Bouncedirection.NULL )
@@ -87,12 +87,21 @@ public class BubbleController : MonoBehaviour {
 		}
 	}
 
+	public void AddSpeed ( float s ) {
+		velocity = velocity.normalized * ( velocity.magnitude + s );
+		if( velocity.magnitude > maxVelocity ) {
+			velocity = velocity.normalized * maxVelocity;
+		}
+	}
+
 	public void IncreaseSize ( float x ) {
 		float tempSize = x + myTransform.localScale.x;
 		if( tempSize > maxSize ) {
 			myTransform.localScale = new Vector3( maxSize, maxSize, 1f );
+			size = maxSize;
 		} else {
 			myTransform.localScale = new Vector3( tempSize, tempSize, 1f );
+			size = tempSize;
 		}
 	}
 }
