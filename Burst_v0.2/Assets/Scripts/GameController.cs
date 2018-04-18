@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameController : MonoBehaviour {
 	public BubbleController bc;
@@ -17,15 +18,28 @@ public class GameController : MonoBehaviour {
 	public float baseBulletSpeed, baseBulletSize;
 	public GunController gunc;
 
+	public TextMeshProUGUI score, health;
+
 	// Use this for initialization
 	void Start () {
 		_ammoGaugeTimer = ammoRechargeTimer;
+		score.text = "SCORE: 0";
+		health.text = "BUBBLE HEALTH: 100";
 	}
 
 	// Update is called once per frame
 	void Update () {
 		FillAmmoGauge();
 		Charge();
+		health.text = "BUBBLE HEALTH: " + bc.health;
+	}
+
+	private float _bubbleSpeedTimer = 0f;
+
+	private void BubbleSpeed ( ) {
+		if( _bubbleSpeedTimer > 1f ) {
+
+		}
 	}
 
 	private bool _charging = false;

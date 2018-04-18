@@ -20,12 +20,17 @@ public class BubbleController : MonoBehaviour {
 	public Transform bubbleGraphic;
 	public float bubbleTurnRate;
 	private Vector3 bgEulerAngles;
+
+	public float health;
+
 	// Use this for initialization
 	void Start () {
 		bgEulerAngles = bubbleGraphic.localEulerAngles;
 		if(myTransform == null ) {
 			myTransform = gameObject.transform;
 		}
+
+		health = 100f;
 
 		myTransform.position = new Vector3( Random.Range( gameBounds.x + origo.x + myTransform.localScale.x / 2f, gameBounds.width + origo.x - myTransform.localScale.x / 2f ),
 											Random.Range( gameBounds.y + origo.y + myTransform.localScale.x / 2f, gameBounds.height + origo.y - myTransform.localScale.x / 2f ),
@@ -46,11 +51,13 @@ public class BubbleController : MonoBehaviour {
 			temp.x = temp.x * -1f;
 			velocity.x = velocity.x * -1f;
 			bubbleTurnRate = ( bubbleTurnRate + Random.Range( -4, 4 ) ) * -1f;
+			health -= (float)( Random.Range( 5, 10 ) );
 		}
 		if( bdY == Bouncedirection.NORTH || bdY == Bouncedirection.SOUTH ) {
 			temp.y = temp.y * -1f;
 			velocity.y = velocity.y * -1f;
 			bubbleTurnRate = ( bubbleTurnRate + Random.Range( -4, 4 ) ) * -1f;
+			health -= (float)( Random.Range( 5, 10 ) );
 		}
 		/*
 		if( bdX != Bouncedirection.NULL || bdY != Bouncedirection.NULL )
@@ -59,6 +66,8 @@ public class BubbleController : MonoBehaviour {
 		myTransform.Translate( temp.x, temp.y, 0f );
 		bgEulerAngles.z = ( bgEulerAngles.z + ( bubbleTurnRate * Time.deltaTime ) ) % 360;
 		bubbleGraphic.localEulerAngles = bgEulerAngles;
+		FixXPos();
+		FixYPos();
 	}
 
 	private Bouncedirection InGameBoundX ( Vector2 newPos ) {
@@ -102,6 +111,30 @@ public class BubbleController : MonoBehaviour {
 		} else {
 			myTransform.localScale = new Vector3( tempSize, tempSize, 1f );
 			size = tempSize;
+		}
+	}
+
+	private void FixXPos ( ) {
+		float x = GetPos().x;
+		if( x - ( size / 2f ) < 0f ) {
+			myTransform.position = new Vector3( size / 2f, myTransform.position.y, myTransform.position.z );
+			return;
+		}
+		if( x > gameBounds.width - ( size / 2f ) ) {
+			myTransform.position = new Vector3( gameBounds.width - ( size / 2f ), myTransform.position.y, myTransform.position.z );
+			return;
+		}
+	}
+
+	private void FixYPos ( ) {
+		float y = GetPos().x;
+		if( y - ( size / 2f ) < 0f ) {
+			myTransform.position = new Vector3( myTransform.position.x, size / 2f, myTransform.position.z );
+			return;
+		}
+		if( y > gameBounds.height - ( size / 2f ) ) {
+			myTransform.position = new Vector3( myTransform.position.x, gameBounds.height - ( size / 2f ), myTransform.position.z );
+			return;
 		}
 	}
 }
